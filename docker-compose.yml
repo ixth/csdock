@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  cs:
+    container_name: cs
+    build: .
+    environment:
+      - START_MAP=cs_assault
+      - ADMIN_STEAM=0:0:62268016
+      - SERVER_NAME=ixth.net
+    ports:
+      - "27015:27015/udp"
