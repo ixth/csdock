@@ -4,9 +4,8 @@ services:
   cs:
     container_name: cs
     build: .
-    environment:
-      - START_MAP=cs_assault
-      - ADMIN_STEAM=0:0:62268016
-      - SERVER_NAME=ixth.net
+    env_file: .env
+    volumes:
+      - ./podbot/podbot.cfg:/opt/hlds/cstrike/addons/podbot/podbot.cfg
     ports:
-      - "27015:27015/udp"
+      - '27015:27015/udp'
