@@ -6,6 +6,6 @@ services:
     build: .
     env_file: .env
     volumes:
-      - ./podbot/podbot.cfg:/opt/hlds/cstrike/addons/podbot/podbot.cfg
+      - ./podbot.cfg:/opt/hlds/cstrike/addons/podbot/podbot.cfg
     ports:
       - '27015:27015/udp'
