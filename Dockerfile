@@ -1,11 +1,12 @@
+FROM apline:latest as downloader
+ARG PODBOT_ZIP_URL='https://github.com/APGRoboCop/podbot_mm/releases/download/V3B24-APG/podbot_full_V3B24.zip'
+WORKDIR /data
+RUN apk update && apk add --no-cache ca-certificates curl unzip
+RUN curl -L "${PODBOT_ZIP_URL}" -o podbot.zip && unzip podbot.zip
+
 FROM hlds/server
-
-ARG PODBOT_ZIP_URL='http://filebase.bots-united.com/uploads/podbot_full_V3B22.zip'
-ARG CURL_UA='User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:63.0) Gecko/20100101 Firefox/63.0'
-
-RUN apt-get update && apt-get install -y --no-install-recommends curl unzip
-RUN curl -L "${PODBOT_ZIP_URL}" -H "${CURL_UA}" -o podbot.zip && \
-    unzip ./podbot.zip -x \
+COPY --from=downloader /data cstrike/addons
+RUN unzip ./podbot.zip -x $(<.)\
             'podbot/pod_v3 docs/' \
             'podbot/pod_v3 docs/**' \
             podbot/botchats/ \
